@@ -17,7 +17,7 @@
     "dotenv": "^17.2.3"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.x"
   },
   "devDependencies": {
     "nodemon": "^3.0.0",
