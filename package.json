@@ -1,0 +1,30 @@
+{
+  "name": "oylanayiq",
+  "version": "2.0.0",
+  "description": "Oylanayiq - Logic Gaming Platform",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js --watch server.js --watch routes --watch views --ext js,html,css"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "connect-sqlite3": "^0.9.16",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.21.2",
+    "express-session": "^1.18.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "@types/node": "^22.14.0"
+  },
+  "overrides": {
+  "tar": "^7.5.0",
+  "@tootallnate/once": "^3.0.1",
+  "node-gyp": {
+    "tar": "^7.5.0"
+  }
+}
+}

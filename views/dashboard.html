@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oylanayiq — Логика платформасы</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css?v=6" />
+</head>
+
+<body>
+  <div id="toast-container"></div>
+  <div class="app">
+    <aside class="sb">
+      <div class="sb-brand">
+        <div class="sb-brand-ico"><img src="/favicon.svg" alt="Oylanayiq"/></div>
+        <div>
+          <div class="sb-brand-name">Oylanayiq</div>
+          <div class="sb-brand-sub">Логика платформасы</div>
+        </div>
+      </div>
+      <div class="sb-user">
+        <div class="sb-ava" id="sb-ava">&#x1F9D1;</div>
+        <div>
+          <div class="sb-uname" id="sb-name">...</div>
+          <div class="sb-ucoin">&#x1FA99; <span id="sb-coins">0</span> монета</div>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <div class="sb-sec">Бөлімдер</div>
+        <a href="/dashboard" class="nav-a on">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="2" />
+            <rect x="14" y="3" width="7" height="7" rx="2" />
+            <rect x="3" y="14" width="7" height="7" rx="2" />
+            <rect x="14" y="14" width="7" height="7" rx="2" />
+          </svg>Ойындар
+        </a>
+        <a href="/shop" class="nav-a">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>Дүкен
+        </a>
+        <a href="/profile" class="nav-a">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>Жеке кабинет
+        </a>
+      </nav>
+      <div class="sb-spacer"></div>
+      <div class="sb-streak">
+        <div><strong id="sb-streak">0</strong><span>Күнделікті серия</span></div>
+        <span class="stat-ico">&#x1F525;</span>
+      </div>
+      <div class="sb-pad"></div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <div class="topbar-title" id="topbar-greet">Oylanayiq &#x1F44B;</div>
+          <div class="topbar-sub">Бүгін қандай ойынмен бастаймыз?</div>
+        </div>
+        <div class="topbar-coins">&#x1FA99; <span id="hdr-coins">0</span></div>
+      </div>
+      <div class="content">
+        <div class="xp-hero">
+          <div class="xp-row"><span class="xp-label">Жалпы прогресс</span><span class="xp-pct" id="xp-pct">0%</span>
+          </div>
+          <div class="xp-track">
+            <div class="xp-fill" id="xp-fg"></div>
+          </div>
+          <div class="xp-foot"><span><span id="lvl-done">0</span> Деңгей өтілді</span><span>&#x2B50; <span
+                id="stars-total">0</span></span></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-c">
+            <div class="stat-ico">&#x1FA99;</div>
+            <div class="stat-val blue" id="sc-coins">0</div>
+            <div class="stat-lbl">Монета</div>
+          </div>
+          <div class="stat-c">
+            <div class="stat-ico">&#x2B50;</div>
+            <div class="stat-val gold" id="sc-stars">0</div>
+            <div class="stat-lbl">Жұлдыз</div>
+          </div>
+          <div class="stat-c">
+            <div class="stat-ico">&#x1F3AE;</div>
+            <div class="stat-val green" id="sc-games">0</div>
+            <div class="stat-lbl">Өтілген</div>
+          </div>
+          <div class="stat-c">
+            <div class="stat-ico">&#x1F525;</div>
+            <div class="stat-val amber" id="sc-streak">0</div>
+            <div class="stat-lbl">Серия</div>
+          </div>
+        </div>
+        <div class="sh">
+          <h2>&#x1F3AE; Ойындар</h2><span class="sh-badge" id="games-badge">12 ойын</span>
+        </div>
+        <div class="games-list" id="games-grid"></div>
+      </div>
+    </main>
+  </div>
+  <nav class="mob-nav">
+    <a href="/dashboard" class="on"><svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </svg>Ойындар</a>
+    <a href="/shop"><svg viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 01-8 0" />
+      </svg>Дүкен</a>
+    <a href="/profile"><svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>Жеке кабинет</a>
+  </nav>
+
+  <script src="/js/core.js?v=6"></script>
+  <script src="/js/dashboard.js?v=6"></script>
+</body>
+
+</html>

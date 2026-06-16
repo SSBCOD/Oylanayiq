@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Кіру — Oylanayiq</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preload" as="image" href="/assets/oylanayiq-logo.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/app.css?v=6"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans',-apple-system,'Segoe UI',Arial,sans-serif;
+}
+.wrap{width:100%;max-width:420px;}
+.wrap{animation:authIn .45s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes authIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.logo{text-align:center;margin-bottom:32px;}
+.logo-ico{
+  width:80px;height:80px;background:linear-gradient(135deg,var(--blue),var(--purple));
+  border-radius:24px;display:flex;align-items:center;justify-content:center;
+  font-size:40px;margin:0 auto 14px;box-shadow:0 12px 32px rgba(59,130,246,.25);
+}
+.logo-ico img{width:40px;height:40px;display:block;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(15,23,42,0.22));}
+.logo-name{font-size:30px;font-weight:900;letter-spacing:-.02em;color:var(--text);}
+.logo-sub{font-size:14px;color:var(--t3);margin-top:5px;font-weight:600;}
+.card{
+  background:var(--surf);
+  border-radius:var(--r3);
+  padding:32px 28px;
+  border:var(--glass-border);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:var(--glass-shadow);
+}
+@media (prefers-reduced-motion: no-preference){
+  .card{animation:cardFloat 7s ease-in-out infinite;}
+}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.step{display:block;opacity:0;transform:translateY(10px);max-height:0;overflow:hidden;pointer-events:none;transition:opacity .25s ease, transform .25s ease, max-height .35s ease;}
+.step.on{opacity:1;transform:none;max-height:900px;pointer-events:auto;}
+.h1{font-size:22px;font-weight:900;letter-spacing:-.03em;margin-bottom:8px;color:var(--text);}
+.sub{font-size:14px;color:var(--t3);margin-bottom:24px;line-height:1.55;}
+/* Field */
+.lbl{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--t4);margin-bottom:8px;}
+.phone-row{display:flex;align-items:center;background:rgba(15,23,42,0.04);border:1.5px solid rgba(15,23,42,0.10);border-radius:16px;overflow:hidden;transition:.2s;}
+.phone-row:focus-within{border-color:rgba(59,130,246,0.6);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(59,130,246,.12);}
+.pfx{padding:14px 12px 14px 18px;font-size:17px;font-weight:900;color:var(--t3);border-right:1.5px solid rgba(15,23,42,0.08);white-space:nowrap;}
+.pinp{
+  flex:1;border:none;background:transparent;font-family:inherit;
+  font-size:17px;font-weight:700;padding:14px 16px;outline:none;color:var(--text);
+  letter-spacing:.02em;
+}
+.pinp::placeholder{color:var(--t4);font-weight:600;}
+.op-tag{
+  margin:8px 0 20px;height:22px;
+  font-size:12px;font-weight:800;color:var(--t2);
+  display:flex;align-items:center;gap:6px;
+}
+.op-tag span{
+  background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);
+  padding:3px 10px;border-radius:100px;
+}
+.op-tag .op-note{background:transparent;border:none;padding:0;color:var(--t4);font-weight:700}
+.op-tag span.op-bad{background:rgba(239,68,68,0.10);border:1px solid rgba(239,68,68,0.22);color:#B91C1C;}
+/* Button */
+.btn-main{
+  width:100%;padding:15px;border:none;border-radius:14px;cursor:pointer;
+  font-family:inherit;font-size:16px;font-weight:800;letter-spacing:-.01em;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;
+  box-shadow:0 8px 24px rgba(37,99,235,0.35);transition:.2s;
+}
+.btn-main:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(37,99,235,0.45);}
+.btn-main:active{transform:scale(.97);}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-ghost-sm{
+  background:none;border:none;font-family:inherit;font-size:13px;
+  color:var(--t3);cursor:pointer;font-weight:700;padding:4px 0;
+}
+.btn-ghost-sm:hover{color:var(--text);}
+/* OTP */
+.otp-grid{display:flex;gap:10px;justify-content:center;margin-bottom:8px;}
+.otp-cell{
+  width:70px;height:72px;border:1.5px solid rgba(15,23,42,0.12);background:rgba(15,23,42,0.04);
+  border-radius:14px;font-family:inherit;font-size:28px;font-weight:900;
+  text-align:center;outline:none;color:var(--text);transition:.2s;
+  -moz-appearance:textfield;
+}
+.otp-cell::-webkit-inner-spin-button,.otp-cell::-webkit-outer-spin-button{-webkit-appearance:none;}
+.otp-cell:focus{border-color:rgba(59,130,246,0.7);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(59,130,246,.12);}
+.otp-cell.filled{border-color:rgba(59,130,246,0.7);background:rgba(59,130,246,0.12);}
+/* Notification box */
+.notif{
+  background:#E8F5E9;border:1.5px solid #A5D6A7;border-radius:14px;
+  padding:12px 16px;font-size:13px;color:#2E7D32;font-weight:600;
+  margin-bottom:18px;display:none;gap:10px;align-items:flex-start;
+}
+.notif.show{display:flex;}
+/* Error */
+.err{color:#D32F2F;font-size:13px;font-weight:600;margin-top:8px;min-height:20px;}
+/* Countdown */
+.countdown{
+  text-align:center;font-size:13px;color:var(--t3);font-weight:700;
+  margin-top:14px;margin-bottom:18px;
+}
+.countdown strong{color:var(--blue);}
+/* Resend */
+.resend-row{text-align:center;margin-top:12px;}
+.resend-row a{color:var(--blue);font-weight:800;cursor:pointer;font-size:13px;}
+.resend-row a.disabled{color:var(--t4);pointer-events:none;}
+/* Name input */
+.name-inp{
+  width:100%;padding:15px 18px;border:1.5px solid rgba(15,23,42,0.10);background:rgba(15,23,42,0.04);
+  border-radius:16px;font-family:inherit;font-size:17px;font-weight:600;
+  outline:none;color:var(--text);transition:.2s;margin-bottom:20px;
+}
+.name-inp:focus{border-color:rgba(59,130,246,0.6);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(59,130,246,.12);}
+.name-inp::placeholder{color:var(--t4);font-weight:600;}
+/* Back link */
+.back-link{display:flex;align-items:center;gap:6px;margin-bottom:18px;cursor:pointer;color:var(--t3);font-size:13px;font-weight:800;}
+.back-link:hover{color:var(--text);}
+/* Step indicator */
+.steps-ind{display:flex;gap:6px;justify-content:center;margin-bottom:24px;}
+.si{height:4px;border-radius:2px;background:rgba(15,23,42,0.10);flex:1;transition:.4s;}
+.si.on{background:var(--blue);}
+
+#sms-toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-18px);opacity:0;pointer-events:none;background:rgba(255,255,255,0.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);padding:16px 18px;border-radius:22px;box-shadow:0 28px 70px rgba(15,23,42,0.22);display:flex;gap:14px;align-items:center;width:90%;max-width:440px;transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),opacity .25s ease;z-index:9999;border:1px solid rgba(15,23,42,0.10);}
+#sms-toast.show{opacity:1;transform:translate(-50%,0);}
+.sms-ico{background:linear-gradient(135deg,var(--blue),var(--purple));width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0;box-shadow:0 14px 36px rgba(59,130,246,0.18);}
+.sms-title{font-size:13px;font-weight:950;color:var(--text);margin-bottom:2px;letter-spacing:-.01em;}
+.sms-body{font-size:13px;color:var(--t3);line-height:1.4;}
+.sms-body strong{color:var(--blue2);font-size:15px;}
+.cd-expired{color:#B91C1C;font-weight:800;}
+</style>
+</head>
+<body>
+<div id="toast-container"></div>
+<div class="wrap">
+  <div class="logo">
+    <div class="logo-ico"><img src="/assets/oylanayiq-logo.svg" width="40" height="40" decoding="async" alt="Oylanayiq"/></div>
+    <div class="logo-name">Oylanayiq</div>
+    <div class="logo-sub">Қазақстан логика платформасы &#x1F1F0;&#x1F1FF;</div>
+  </div>
+  <div class="card">
+    <!-- Steps indicator -->
+    <div class="steps-ind">
+      <div class="si on" id="si1"></div>
+      <div class="si" id="si2"></div>
+      <div class="si" id="si3"></div>
+    </div>
+
+    <!-- ── STEP 1: Phone ── -->
+    <div class="step on" id="s1">
+      <div class="h1">Қош келдіңіз! &#x1F44B;</div>
+      <div class="sub">Телефон нөміріңізді енгізіңіз. SMS-код жібереміз.</div>
+      <label class="lbl" for="phone-inp">Телефон нөмірі</label>
+      <div class="phone-row" id="phone-row">
+        <span class="pfx">+7</span>
+        <input class="pinp" id="phone-inp" type="tel" maxlength="14"
+               placeholder="7X7 XXX XX XX" inputmode="numeric" autocomplete="tel"/>
+      </div>
+      <div class="op-tag" id="op-tag"></div>
+      <div class="err" id="e1"></div>
+      <button class="btn-main" id="send-btn" disabled>
+        &#x1F4F1; SMS-код жіберу
+      </button>
+    </div>
+
+    <!-- ── STEP 2: Name (new users only) ── -->
+    <div class="step" id="s2">
+      <div class="back-link" id="back-name">&#x2190; Артқа</div>
+      <div class="h1">Атыңызды енгізіңіз &#x1F642;</div>
+      <div class="sub">Платформада көрсетілетін атыңыз.</div>
+      <label class="lbl" for="name-inp">Атыңыз</label>
+      <input class="name-inp" id="name-inp" type="text"
+             placeholder="Мысалы: Айбек, Динара..." maxlength="40" autocomplete="name"/>
+      <div class="err" id="e3"></div>
+      <button class="btn-main" id="name-btn">Жалғастыру &#x2192;</button>
+    </div>
+
+    <!-- ── STEP 3: OTP ── -->
+    <div class="step" id="s3">
+      <div class="back-link" id="back-otp">&#x2190; Артқа</div>
+      <div class="h1">SMS-кодты енгізіңіз</div>
+      <div class="sub" id="otp-sub">Сіздің нөміріңізге 4 сандық код жіберілді.</div>
+      <div class="otp-grid">
+        <input class="otp-cell" id="o0" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code"/>
+        <input class="otp-cell" id="o1" type="text" inputmode="numeric" maxlength="1"/>
+        <input class="otp-cell" id="o2" type="text" inputmode="numeric" maxlength="1"/>
+        <input class="otp-cell" id="o3" type="text" inputmode="numeric" maxlength="1"/>
+      </div>
+      <div class="err" id="e2"></div>
+      <div class="countdown" id="cd-wrap">
+        Код <strong id="cd">5:00</strong> минуттан соң жойылады
+      </div>
+      <button class="btn-main" id="verify-btn" disabled>Растау &#x2714;</button>
+      <div class="resend-row">
+        Код келмеді ме?
+        <a id="resend-a" class="disabled">Қайта жіберу (<span id="resend-cd">60</span>s)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="sms-toast">
+  <div class="sms-ico">&#x1F4AC;</div>
+  <div>
+    <div class="sms-title">Жаңа хабарлама</div>
+    <div class="sms-body">Oylanayiq коды: <strong id="sms-toast-code">1234</strong>. Кодты ешкімге айтпаңыз.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  // ── State ──────────────────────────────────────────────────────────────
+  var phone = '', simCode = '', cdInterval = null, resendInterval = null;
+  var RESEND_WAIT = 60; // seconds before allowing resend
+
+  // ── DOM refs ────────────────────────────────────────────────────────────
+  var phoneInp = byId('phone-inp');
+  var sendBtn  = byId('send-btn');
+  var opTag    = byId('op-tag');
+  var otpCells = [byId('o0'),byId('o1'),byId('o2'),byId('o3')];
+  var verifyBtn = byId('verify-btn');
+  var nameInp  = byId('name-inp');
+  var nameBtn  = byId('name-btn');
+
+  function byId(id){ return document.getElementById(id); }
+
+  // ── Operators ──────────────────────────────────────────────────────────
+  var OPS = {
+    '700':'Activ/Kcell','701':'Activ/Kcell','702':'Activ/Kcell','703':'Activ/Kcell','704':'Activ/Kcell',
+    '705':'Beeline','706':'Beeline',
+    '707':'Tele2/Altel','708':'Tele2/Altel',
+    '747':'Tele2/Altel',
+    '775':'Beeline','776':'Beeline','777':'Beeline',
+    '778':'Activ/Kcell',
+    '771':'Beeline'
+  };
+
+  // ── Step management ────────────────────────────────────────────────────
+  function goTo(step) {
+    [byId('s1'),byId('s2'),byId('s3')].forEach(function(el,i){
+      if(el) el.className = 'step' + (i+1===step?' on':'');
+    });
+    [byId('si1'),byId('si2'),byId('si3')].forEach(function(el,i){
+      if(el) el.className = 'si' + (i<step?' on':'');
+    });
+  }
+
+  function setErr(id, msg) {
+    var el = byId(id);
+    if (el) el.textContent = msg || '';
+  }
+
+  // ── Phone formatting ───────────────────────────────────────────────────
+  phoneInp.addEventListener('input', function() {
+    var raw = phoneInp.value.replace(/\D/g,'').slice(0,10);
+    // Format: 747-704-45-47
+    var fmt = raw.slice(0,3);
+    if (raw.length > 3) fmt += '-' + raw.slice(3,6);
+    if (raw.length > 6) fmt += '-' + raw.slice(6,8);
+    if (raw.length > 8) fmt += '-' + raw.slice(8,10);
+    phoneInp.value = fmt;
+
+    var op = raw.length >= 3 ? OPS[raw.slice(0,3)] : '';
+    if (op) {
+      opTag.innerHTML = '<span>' + op + '</span><span class="op-note">Нөмір тасымалдануы мүмкін</span>';
+    } else {
+      opTag.innerHTML = raw.length >= 3 ? '<span class="op-bad">Белгісіз оператор</span>' : '';
+    }
+    sendBtn.disabled = raw.length !== 10;
+    setErr('e1','');
+  });
+
+  // ── Step 1: Check Phone ───────────────────────────────────────────────
+  sendBtn.addEventListener('click', function() {
+    var digits = phoneInp.value.replace(/\D/g,'');
+    phone = '+7' + digits;
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Тексерілуде...';
+
+    post('/api/auth/check-phone', { phone: phone })
+      .then(function(d) {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = 'Жалғастыру &#x2192;';
+        if (!d.ok) { setErr('e1', d.message || 'Қате'); return; }
+
+        if (d.isNew) {
+          goTo(2);
+          nameInp.focus();
+        } else {
+          triggerSendOtp();
+        }
+      })
+      .catch(function() {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = 'Жалғастыру &#x2192;';
+        setErr('e1','Байланыста қате. Қайта көріңіз.');
+      });
+  });
+
+  phoneInp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !sendBtn.disabled) sendBtn.click();
+  });
+
+  // ── Step 2: Set Name (new users) ──────────────────────────────────────
+  nameBtn.addEventListener('click', function() {
+    var name = (nameInp.value || '').trim();
+    if (!name) { nameInp.style.borderColor='#D32F2F'; setErr('e3','Атыңызды енгізіңіз'); return; }
+    nameInp.style.borderColor='';
+    nameBtn.disabled = true;
+    nameBtn.textContent = 'Күте тұрыңыз...';
+    triggerSendOtp();
+  });
+
+  nameInp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') nameBtn.click();
+  });
+  nameInp.addEventListener('input', function() { nameInp.style.borderColor=''; setErr('e3',''); });
+
+  byId('back-name').addEventListener('click', function() {
+    goTo(1);
+    setErr('e3','');
+  });
+
+  // ── Trigger Send OTP ────────────────────────────────────────────────────
+  function triggerSendOtp() {
+    post('/api/auth/send-otp', { phone: phone })
+      .then(function(d) {
+        nameBtn.disabled = false;
+        nameBtn.innerHTML = 'Жалғастыру &#x2192;';
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = 'Жалғастыру &#x2192;';
+        if (!d.ok) { 
+          if(byId('s2').classList.contains('on')) setErr('e3', d.message); 
+          else setErr('e1', d.message);
+          return; 
+        }
+
+        simCode = d.simulatedCode || '';
+        byId('otp-sub').textContent = phone + ' нөміріне 4 сандық код жіберілді.';
+
+        goTo(3);
+        otpCells[0].focus();
+        startCountdown(d.expiresIn || 300);
+        startResendTimer();
+
+        showSmsNotification(simCode);
+      })
+      .catch(function() {
+        nameBtn.disabled = false;
+        nameBtn.innerHTML = 'Жалғастыру &#x2192;';
+        setErr('e1','Қате шықты. Қайта көріңіз.');
+      });
+  }
+
+  function showSmsNotification(code) {
+    setTimeout(function () {
+      var st = byId('sms-toast');
+      var stc = byId('sms-toast-code');
+      if (st && stc) {
+        stc.textContent = code ? code : '••••';
+        st.classList.add('show');
+        if (navigator && navigator.vibrate) navigator.vibrate([60, 40, 60]);
+        try {
+          var AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) {
+            var ctx = new AC();
+            var o = ctx.createOscillator();
+            var g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.value = 880;
+            g.gain.value = 0.05;
+            o.connect(g);
+            g.connect(ctx.destination);
+            o.start();
+            setTimeout(function () { o.stop(); ctx.close(); }, 120);
+          }
+        } catch (e) {}
+        setTimeout(function () { st.classList.remove('show'); }, 6500);
+      }
+    }, 900);
+  }
+
+  // ── OTP inputs ─────────────────────────────────────────────────────────
+  otpCells.forEach(function(cell, i) {
+    cell.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace') {
+        if (!cell.value && i > 0) { otpCells[i-1].focus(); otpCells[i-1].value = ''; }
+        updateOtpBtn();
+      }
+      if (e.key === 'ArrowLeft' && i > 0) otpCells[i-1].focus();
+      if (e.key === 'ArrowRight' && i < 3) otpCells[i+1].focus();
+      if (e.key === 'Enter' && !verifyBtn.disabled) verifyBtn.click();
+    });
+
+    cell.addEventListener('input', function() {
+      var v = cell.value.replace(/\D/g,'').slice(0,1);
+      cell.value = v;
+      cell.className = 'otp-cell' + (v ? ' filled' : '');
+      if (v && i < 3) otpCells[i+1].focus();
+      updateOtpBtn();
+      setErr('e2','');
+    });
+
+    // Paste support
+    cell.addEventListener('paste', function(e) {
+      e.preventDefault();
+      var txt = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+      if (!txt) return;
+      otpCells.forEach(function(c, j) {
+        c.value = txt[j] || '';
+        c.className = 'otp-cell' + (txt[j] ? ' filled' : '');
+      });
+      var last = Math.min(txt.length, 4) - 1;
+      if (last >= 0) otpCells[last].focus();
+      updateOtpBtn();
+    });
+  });
+
+  function getOTPValue() { return otpCells.map(function(c){ return c.value; }).join(''); }
+  function updateOtpBtn() { verifyBtn.disabled = getOTPValue().length !== 4; }
+
+  // ── Verify OTP ─────────────────────────────────────────────────────────
+  verifyBtn.addEventListener('click', function() {
+    var otp = getOTPValue();
+    if (otp.length !== 4) return;
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = 'Тексерілуде...';
+
+    var nameVal = (nameInp.value || '').trim();
+
+    post('/api/auth/verify-otp', { phone: phone, code: otp, name: nameVal })
+      .then(function(d) {
+        if (!d.ok) {
+          verifyBtn.disabled = false;
+          verifyBtn.innerHTML = 'Растау &#x2714;';
+          setErr('e2', d.message || 'Қате код');
+          otpCells.forEach(function(c){ c.style.borderColor='#D32F2F'; });
+          setTimeout(function(){ otpCells.forEach(function(c){ c.style.borderColor=''; c.value=''; c.className='otp-cell'; }); otpCells[0].focus(); updateOtpBtn(); }, 600);
+          return;
+        }
+        clearInterval(cdInterval);
+        window.location.href = d.redirect || '/dashboard';
+      })
+      .catch(function() {
+        verifyBtn.disabled = false;
+        verifyBtn.innerHTML = 'Растау &#x2714;';
+        setErr('e2','Қате. Қайта көріңіз.');
+      });
+  });
+
+  // ── Back to phone from OTP ─────────────────────────────────────────────
+  byId('back-otp').addEventListener('click', function() {
+    clearInterval(cdInterval);
+    clearInterval(resendInterval);
+    goTo(1);
+    otpCells.forEach(function(c){ c.value=''; c.className='otp-cell'; });
+    setErr('e2','');
+    verifyBtn.disabled = true;
+    byId('sms-toast').classList.remove('show');
+  });
+
+  // ── Resend link ─────────────────────────────────────────────────────────
+  byId('resend-a').addEventListener('click', function() {
+    if (byId('resend-a').classList.contains('disabled')) return;
+    triggerSendOtp(); // resend immediately
+    otpCells.forEach(function(c){ c.value=''; c.className='otp-cell'; });
+    verifyBtn.disabled=true;
+    setErr('e2','');
+  });
+
+  // ── Countdown timer (5 min OTP expiry) ─────────────────────────────────
+  function startCountdown(seconds) {
+    clearInterval(cdInterval);
+    var rem = seconds;
+    function tick() {
+      var m = Math.floor(rem/60), s = rem%60;
+      var cdEl = byId('cd');
+      if (cdEl) cdEl.textContent = m + ':' + (s<10?'0':'') + s;
+      if (rem <= 0) {
+        clearInterval(cdInterval);
+        if (cdEl) cdEl.textContent = '0:00';
+        byId('cd-wrap').innerHTML = '<span class="cd-expired">Код мерзімі өтті. Қайта жіберіңіз.</span>';
+        verifyBtn.disabled = true;
+      }
+      rem--;
+    }
+    tick();
+    cdInterval = setInterval(tick, 1000);
+  }
+
+  // ── Resend timer (60s cooldown) ─────────────────────────────────────────
+  function startResendTimer() {
+    clearInterval(resendInterval);
+    var ra = byId('resend-a'), rcd = byId('resend-cd');
+    ra.className = 'disabled';
+    var t = RESEND_WAIT;
+    function tick2() {
+      if (rcd) rcd.textContent = t;
+      if (t <= 0) {
+        clearInterval(resendInterval);
+        ra.className = '';
+        ra.textContent = 'Қайта жіберу';
+      }
+      t--;
+    }
+    tick2();
+    resendInterval = setInterval(tick2, 1000);
+  }
+
+  // ── Fetch helper ────────────────────────────────────────────────────────
+  function post(url, body) {
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function(r) { return r.json(); });
+  }
+})();
+</script>
+</body>
+</html>

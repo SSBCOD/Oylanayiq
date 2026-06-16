@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Дүкен — Oylanayiq</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css?v=6" />
+</head>
+
+<body>
+  <div id="toast-container"></div>
+  <div class="app">
+    <aside class="sb">
+      <div class="sb-brand">
+        <div class="sb-brand-ico"><img src="/favicon.svg" alt="Oylanayiq"/></div>
+        <div>
+          <div class="sb-brand-name">Oylanayiq</div>
+          <div class="sb-brand-sub">Логика платформасы</div>
+        </div>
+      </div>
+      <div class="sb-user">
+        <div class="sb-ava" id="sb-ava">&#x1F9D1;</div>
+        <div>
+          <div class="sb-uname" id="sb-name">...</div>
+          <div class="sb-ucoin">&#x1FA99; <span id="sb-coins">0</span></div>
+        </div>
+      </div>
+      <nav class="sb-nav">
+        <a href="/dashboard" class="nav-a"><svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="2" />
+            <rect x="14" y="3" width="7" height="7" rx="2" />
+            <rect x="3" y="14" width="7" height="7" rx="2" />
+            <rect x="14" y="14" width="7" height="7" rx="2" />
+          </svg>Ойындар</a>
+        <a href="/shop" class="nav-a on"><svg viewBox="0 0 24 24">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>Дүкен</a>
+        <a href="/profile" class="nav-a"><svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>Жеке кабинет</a>
+      </nav>
+      <div class="sb-spacer"></div>
+      <div class="sb-streak">
+        <div><strong id="sb-streak">0</strong><span>Күнделікті серия</span></div><span class="stat-ico">&#x1F525;</span>
+      </div>
+      <div class="sb-pad"></div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <div class="topbar-title">&#x1F6CD; Марапат дүкені</div>
+          <div class="topbar-sub">Монетаңызды пайдалы марапатқа айырбастаңыз</div>
+        </div>
+        <div class="topbar-coins">&#x1FA99; <span id="hdr-coins">0</span></div>
+      </div>
+      <div class="content">
+        <div class="xp-hero shop-hero">
+          <div>
+            <div class="shop-hero-label">Сіздің балансыңыз</div>
+            <div class="shop-hero-balance">&#x1FA99; <span id="balance-coins">0</span></div>
+          </div>
+          <div class="shop-hero-ico">&#x1F4B0;</div>
+        </div>
+
+        <div class="sh">
+          <h2>Марапаттар</h2><span class="sh-badge" id="items-count">0</span>
+        </div>
+        <div class="shop-filters">
+          <button class="btn btn-ghost btn-sm shop-filter active" data-cat="all">Барлығы</button>
+          <button class="btn btn-ghost btn-sm shop-filter" data-cat="virtual">Виртуалды</button>
+          <button class="btn btn-ghost btn-sm shop-filter" data-cat="real">Нақты</button>
+        </div>
+        <div class="shop-grid" id="shop-grid"></div>
+
+        <div class="sh mt-4">
+          <h2>Менің марапаттарым</h2><span class="sh-badge"><span id="rewards-count">0</span></span>
+        </div>
+        <div id="rewards-list" class="rewards-wrap"></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="buy-modal" class="overlay hidden">
+    <div class="sheet">
+      <div class="sheet-drag"></div>
+      <div class="modal-ico" id="buy-icon">&#x1F381;</div>
+      <div class="modal-title" id="buy-item-name">Марапат</div>
+      <div class="modal-sub" id="buy-desc"></div>
+      <div class="modal-price">
+        <div class="modal-price-val" id="buy-price">&#x1FA99; 0</div>
+      </div>
+      <div class="modal-stack">
+        <button class="btn btn-blue btn-full btn-lg" id="confirm-buy-btn">Сатып алу &#x2192;</button>
+        <button class="btn btn-ghost btn-full" id="cancel-buy-btn">Болдырмау</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="qr-modal" class="overlay hidden">
+    <div class="sheet">
+      <div class="sheet-drag"></div>
+      <div class="modal-ico">&#x1F3AB;</div>
+      <div class="modal-title">Сіздің кодыңыз</div>
+      <div class="modal-sub">
+        Бұл кодты кассада немесе серіктес нүктесінде көрсетіңіз. Код бір рет қана қолданылады.
+      </div>
+      <div class="code-box">
+        <div class="code-mono" id="qr-code-display">—</div>
+      </div>
+      <button class="btn btn-ghost btn-full" id="close-qr-btn">Жабу</button>
+    </div>
+  </div>
+
+  <nav class="mob-nav">
+    <a href="/dashboard"><svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </svg>Ойындар</a>
+    <a href="/shop" class="on"><svg viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 01-8 0" />
+      </svg>Дүкен</a>
+    <a href="/profile"><svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>Жеке кабинет</a>
+  </nav>
+  <script src="/js/core.js?v=6"></script>
+  <script src="/js/shop.js?v=6"></script>
+</body>
+
+</html>
